@@ -1,0 +1,7 @@
+# Ignore everything except src/
+/*
+!/src/
+
+# Python cache
+__pycache__/
+*.pyc

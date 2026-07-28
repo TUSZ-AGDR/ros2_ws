@@ -1,0 +1,41 @@
+# ============================================================
+# turtlesim_mimic_launch.yaml —— Launch 文件示例（YAML 格式）
+#
+# 这是 Launch 文件的 YAML 写法，功能与同目录的 Python 版本完全相同：
+#   同时启动两个 turtlesim 海龟模拟器和一个 mimic 模仿节点。
+#
+# YAML 格式的优点：语法简洁直观，适合简单的节点启动场景。
+# Python 格式的优点：可以写条件判断、循环、参数计算等复杂逻辑。
+#
+# 运行方式：
+#   ros2 launch launch_example turtlesim_mimic_launch.yaml
+# ============================================================
+
+launch:
+  # ---------- 节点1：第一个海龟模拟器（turtlesim1 命名空间）----------
+  - node:
+      pkg: "turtlesim"           # 功能包名称
+      exec: "turtlesim_node"     # 可执行文件名
+      name: "sim"                # 节点名称
+      namespace: "turtlesim1"    # 命名空间（隔离同名话题）
+
+  # ---------- 节点2：第二个海龟模拟器（turtlesim2 命名空间）----------
+  - node:
+      pkg: "turtlesim"
+      exec: "turtlesim_node"
+      name: "sim"
+      namespace: "turtlesim2"
+
+  # ---------- 节点3：mimic 模仿节点 ----------
+  # 通过话题重映射，让海龟2模仿海龟1的运动
+  - node:
+      pkg: "turtlesim"
+      exec: "mimic"
+      name: "mimic"
+      remap:
+        # 将 mimic 默认的 /input/pose 重映射到海龟1的位姿话题
+        - from: "/input/pose"
+          to: "/turtlesim1/turtle1/pose"
+        # 将 mimic 默认的 /output/cmd_vel 重映射到海龟2的速度话题
+        - from: "/output/cmd_vel"
+          to: "/turtlesim2/turtle1/cmd_vel"
