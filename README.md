@@ -11,4 +11,4 @@
 | `py_topic` | Python | Topic 发布者/订阅者 |
 | `tf2_demo` | Python | TF2 坐标变换 |
 | `bag_recorder_py` | Python | ROS2 Bag 录制/回放 |
-| `launch_example` | C++ | Launch 文件示例 |
+| `launch_example` | Python | Launch 文件示例 |
